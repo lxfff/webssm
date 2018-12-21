@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.name.web.dao.DemoDao" >
+  <resultMap id="BaseResultMap" type="com.name.web.model.Demo" >
+    <id column="demo_id" property="demoId" jdbcType="BIGINT" />
+    <result column="demo_name" property="demoName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    demo_id, demo_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from demo
+    where demo_id = #{demoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from demo
+    where demo_id = #{demoId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.name.web.model.Demo" >
+    insert into demo (demo_id, demo_name)
+    values (#{demoId,jdbcType=BIGINT}, #{demoName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.name.web.model.Demo" >
+    insert into demo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="demoId != null" >
+        demo_id,
+      </if>
+      <if test="demoName != null" >
+        demo_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="demoId != null" >
+        #{demoId,jdbcType=BIGINT},
+      </if>
+      <if test="demoName != null" >
+        #{demoName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.name.web.model.Demo" >
+    update demo
+    <set >
+      <if test="demoName != null" >
+        demo_name = #{demoName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where demo_id = #{demoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.name.web.model.Demo" >
+    update demo
+    set demo_name = #{demoName,jdbcType=VARCHAR}
+    where demo_id = #{demoId,jdbcType=BIGINT}
+  </update>
+</mapper>
