@@ -51,7 +51,7 @@ public class DemoServiceImpl implements DemoService {
         demo.setDemoId(1l);
         demo.setDemoName("niHao");
         demoDao.updateByPrimaryKey(demo);
-        System.out.println("修改完成");
+        System.out.println("修改完成 事物启动");
         throw new RuntimeException();
     }
 }
